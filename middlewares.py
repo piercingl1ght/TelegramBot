@@ -20,3 +20,16 @@ class AntifloodMiddleware(BaseMiddleware):
         
     def post_process(self, message, data, exception):
         pass
+
+
+class ExtraArgsMiddleware(BaseMiddleware):
+    def __init__(self):
+        self.update_types = ['message', 'edited_message']
+        # Always specify update types, otherwise middlewares won't work
+
+    def pre_process(self, message: Message, data):
+        data['arg1'] = "I'm the arg1 from the middleware!"
+        data['arg2'] = "I'm the arg2 from the middleware!"
+        
+    def post_process(self, message, data, exception):
+        pass
